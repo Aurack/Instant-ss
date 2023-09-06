@@ -42,7 +42,7 @@ public class LikePictureController {
     @GetMapping("/liked")
     public ResponseEntity<Long> hasLiked(@RequestParam Long userId, @RequestParam Long pictureId) {
         String liked = this.likePictureService.hasLiked(userId, pictureId);
-        return ResponseEntity.ok(parseLong(liked));
+        return ResponseEntity.ok(liked != null ? parseLong(liked) : null);
     }
 
     @PostMapping
