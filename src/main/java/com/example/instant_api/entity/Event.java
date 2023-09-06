@@ -1,13 +1,10 @@
 package com.example.instant_api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name="event")
@@ -25,10 +22,6 @@ public class Event {
     private User user;
 
     private String name;
-
-    @OneToMany
-    @JsonIgnore
-    private List<Picture> pictures;
 
     public Event(String name, User user) {
         this.name = name;

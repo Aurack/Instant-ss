@@ -40,9 +40,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody String name) {
-        System.out.println(name);
         User createdUser = userService.createUser(name);
-        System.out.println(createdUser);
         return ResponseEntity.ok(createdUser);
     }
 

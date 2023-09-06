@@ -1,13 +1,10 @@
 package com.example.instant_api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -21,10 +18,6 @@ public class User {
     private Long id;
 
     private String name;
-
-    @OneToMany
-    @JsonIgnore
-    private List<LikePicture> likePictures;
 
     public User(String name) {
         this.name = name;

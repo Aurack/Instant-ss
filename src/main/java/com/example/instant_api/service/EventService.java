@@ -25,15 +25,7 @@ public class EventService {
         return this.eventRepository.findById(id).orElse(null);
     }
 
-    public Event getEventByName(String name) {
-        return this.eventRepository.findByName(name).orElse(null);
-    }
-
-    public Event createEvent(Event event) {
-        return this.eventRepository.save(event);
-    }
-
-    public Event createEventByNameAndUser(String name, User user) {
+    public Event createEvent(String name, User user) {
         Event event = new Event(name, user);
         return this.eventRepository.save(event);
     }

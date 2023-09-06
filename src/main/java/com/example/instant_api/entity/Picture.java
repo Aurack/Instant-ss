@@ -1,6 +1,5 @@
 package com.example.instant_api.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "picture")
@@ -29,11 +27,9 @@ public class Picture {
     @JoinColumn(name = "event_id")
     @ManyToOne
     private Event event;
-    @OneToMany
-    @JsonIgnore
-    private List<LikePicture> likePictures;
 
-    public Picture(Date date, String pictureUrl) {
+    public Picture(Date date, String pictureUrl, Event event) {
+        this.event = event;
         this.date = date;
         this.pictureUrl = pictureUrl;
     }

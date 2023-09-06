@@ -1,6 +1,7 @@
 package com.example.instant_api.controller;
 
 import com.example.instant_api.entity.Picture;
+import com.example.instant_api.service.EventService;
 import com.example.instant_api.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +13,20 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.Long.parseLong;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/pictures")
 public class PictureController {
 
     private final PictureService pictureService;
+    private final EventService eventService;
 
     @Autowired
-    public PictureController(PictureService pictureService) {
+    public PictureController(PictureService pictureService, EventService eventService) {
         this.pictureService = pictureService;
+        this.eventService = eventService;
     }
 
     @GetMapping
@@ -43,12 +48,12 @@ public class PictureController {
     }
 
     @PostMapping
-    public ResponseEntity<Picture> createPicture(@RequestParam("image") MultipartFile picture) throws IOException {
+    @CrossOrigin
+    public ResponseEntity<Picture> createPicture(@RequestParam("image") MultipartFile picture, @RequestParam("eventId") String eventId) throws IOException {
         if (picture != null && !picture.isEmpty()) {
             byte[] imageBytes = picture.getBytes();
             String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-            System.out.println(base64Image);
-            Picture toCreatePicture = new Picture(new Date(), base64Image);
+            Picture toCreatePicture = new Picture(new Date(), base64Image, this.eventService.getEventById(parseLong(eventId)));
             Picture createdPicture = pictureService.createPicture(toCreatePicture);
             return ResponseEntity.ok(createdPicture);
         } else {
