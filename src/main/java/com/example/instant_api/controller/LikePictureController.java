@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.Long.parseLong;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/likes")
@@ -38,9 +40,9 @@ public class LikePictureController {
     }
 
     @GetMapping("/liked")
-    public ResponseEntity<String> hasLiked(@RequestParam Long userId, @RequestParam Long pictureId) {
+    public ResponseEntity<Long> hasLiked(@RequestParam Long userId, @RequestParam Long pictureId) {
         String liked = this.likePictureService.hasLiked(userId, pictureId);
-        return ResponseEntity.ok(liked);
+        return ResponseEntity.ok(parseLong(liked));
     }
 
     @PostMapping

@@ -46,7 +46,7 @@ public class LikePictureService {
     }
 
     public LikePicture createLikeParams(Long userId, Long pictureId) {
-        if (this.hasLiked(userId, pictureId) != null) {
+        if (this.hasLiked(userId, pictureId) == null) {
             User user = this.userService.getUserById(userId);
             Picture picture = this.pictureService.getPictureById(pictureId);
             LikePicture newLikePicture = new LikePicture(user, picture);
