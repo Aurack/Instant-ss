@@ -34,19 +34,19 @@ public class LikePictureService {
         return this.likePictureRepository.countByPictureId(id);
     }
 
-    public boolean hasLiked(Long userId, Long pictureId) {
-        return this.likePictureRepository.existsByPictureIdAndUserId(userId, pictureId) > 0;
+    public String hasLiked(Long userId, Long pictureId) {
+        return this.likePictureRepository.findByUserIdAndPictureId(userId, pictureId);
     }
 
     public LikePicture createLike(LikePicture likePicture) {
-        if (!this.hasLiked(likePicture.getUser().getId(), likePicture.getPicture().getId()))
+        if (this.hasLiked(likePicture.getUser().getId(), likePicture.getPicture().getId()) != null)
             return this.likePictureRepository.save(likePicture);
         else
             return null;
     }
 
     public LikePicture createLikeParams(Long userId, Long pictureId) {
-        if (!this.hasLiked(userId, pictureId)) {
+        if (this.hasLiked(userId, pictureId) != null) {
             User user = this.userService.getUserById(userId);
             Picture picture = this.pictureService.getPictureById(pictureId);
             LikePicture newLikePicture = new LikePicture(user, picture);

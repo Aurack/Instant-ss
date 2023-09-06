@@ -38,8 +38,8 @@ public class LikePictureController {
     }
 
     @GetMapping("/liked")
-    public ResponseEntity<Boolean> hasLiked(@RequestParam Long userId, @RequestParam Long pictureId) {
-        boolean liked = this.likePictureService.hasLiked(userId, pictureId);
+    public ResponseEntity<String> hasLiked(@RequestParam Long userId, @RequestParam Long pictureId) {
+        String liked = this.likePictureService.hasLiked(userId, pictureId);
         return ResponseEntity.ok(liked);
     }
 

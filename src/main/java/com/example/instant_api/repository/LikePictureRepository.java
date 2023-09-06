@@ -11,6 +11,6 @@ public interface LikePictureRepository extends JpaRepository<LikePicture, Long> 
     @Query(nativeQuery = true, value = "Select count(id) from like_picture where picture_id = :id")
     Long countByPictureId(@Param("id") Long id);
 
-    @Query(nativeQuery = true, value = "Select count(id) from like_picture where picture_id = :pictureId and user_id = :userId")
-    Long existsByPictureIdAndUserId(@Param("userId") Long userId, @Param("pictureId") Long pictureId);
+    @Query(nativeQuery = true, value = "Select id from like_picture where picture_id = :pictureId and user_id = :userId")
+    String findByUserIdAndPictureId(@Param("userId") Long userId, @Param("pictureId") Long pictureId);
 }
